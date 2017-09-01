@@ -1,12 +1,6 @@
 Set-StrictMode -Version 2
 $ErrorActionPreference = "Stop"
 
-$startdate = get-date 8/1/2017
-$enddate = get-date 8/2/2017
-$adla_accountname = "datainsights"
-$output_folder = "D:\jobhistory"
-
-
 function get-daterange( [datetime] $start, [datetime] $end )
 {
     $curdate = $staRT
@@ -59,8 +53,6 @@ function Export-AdlJobHistory( [string] $account, [datetime] $start, [datetime] 
 }
 
 
-Export-AdlJobHistory -account $adla_accountname -start $startdate -end $enddate -folder $output_folder -overwrite $false
-
 
 function Import-AdlJobHistory( [string] $account, [datetime] $start, [datetime] $end, [string] $folder)
 {
@@ -86,5 +78,22 @@ function Import-AdlJobHistory( [string] $account, [datetime] $start, [datetime] 
 
 }
 
-$jobs = Import-AdlJobHistory -account $adla_accountname -start $startdate -end $enddate -folder $output_folder 
 
+# $startdate = get-date 8/1/2017
+# $enddate = get-date 8/31/2017
+# $adla_accountname = "datainsights"
+# $output_folder = "D:\jobhistory"
+
+
+# Save daily job history
+# Export-AdlJobHistory -account $adla_accountname -start $startdate -end $enddate -folder $output_folder -overwrite $false
+
+
+# $jobs = Import-AdlJobHistory -account $adla_accountname -start $startdate -end $enddate -folder $output_folder 
+
+# $jobs | ConvertTo-Json | Out-file d:\jobhistory.json
+
+
+
+# select the properties you want
+# $jobs | Select Submitter,ErrorMessage,DegreeOfParallelism,Priority,SubmitTime,StartTime,EndTime,State,Result | ConvertTo-Json | Out-file d:\jobhistory2.json            
