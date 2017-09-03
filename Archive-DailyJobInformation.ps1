@@ -16,7 +16,7 @@ class AdlJobDateRange
     }
 }
 
-function __getdaterange( [AdlJobDateRange] $daterange )
+function __expanddaterange( [AdlJobDateRange] $daterange )
 {
     $curdate = $daterange.Lower
     while ($curdate -le $daterange.Upper)
@@ -41,7 +41,7 @@ function Get-AdlJobDateRange( [datetime] $start, [datetime] $end )
 
 function Export-AdlJobHistory( [string] $account, [AdlJobDateRange] $daterange, [string] $folder, [bool] $overwrite=$false)
 {
-    $dates = __getdaterange $daterange
+    $dates = __expanddaterange $daterange
 
     foreach ($date in $dates)
     {
@@ -78,7 +78,7 @@ function Export-AdlJobHistory( [string] $account, [AdlJobDateRange] $daterange, 
 
 function Import-AdlJobHistory( [string] $account, [AdlJobDateRange] $daterange, [string] $folder)
 {
-    $dates = __getdaterange $daterange
+    $dates = __expanddaterange $daterange
 
     foreach ($date in $dates)
     {
