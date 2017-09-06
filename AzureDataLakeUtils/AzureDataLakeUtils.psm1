@@ -29,7 +29,7 @@ function __expanddaterange( [AdlJobDateRange] $daterange )
 function __getdailyfilename( [string] $account, [string] $folder, [datetime] $date )
 {
     $date = $date.Date
-    $filename = Join-Path $folder ( "jobs_" + $account + "_" + $date.ToString("yyyyMMdd") + ".clixml")
+    $filename = Join-Path $folder ( "jobs_" + $account + "_" + $date.ToString("yyyyMMdd") + ".json")
     $filename
 }
 
@@ -68,7 +68,7 @@ function Export-AdlJobHistory( [string] $account, [AdlJobDateRange] $daterange, 
             if ($jobs -ne $null)
             {
                 Write-Host "Num jobs" = $jobs.Count
-                $jobs | Export-Clixml -Path $filename
+                $jobs | ConvertTo-Json | Out-File -FilePath $filename
             }
         }
     }
@@ -89,7 +89,7 @@ function Import-AdlJobHistory( [string] $account, [AdlJobDateRange] $daterange, 
 
         if ( Test-Path $filename )
         {
-            $jobs = Import-Clixml $filename
+            $jobs = Get-Content -Raw -Path $filename | ConvertFrom-Json
             foreach ($job in $jobs)
             {
                 $job
@@ -100,20 +100,18 @@ function Import-AdlJobHistory( [string] $account, [AdlJobDateRange] $daterange, 
 }
 
 
-# $startdate = get-date 2017/8/16
-# $enddate = get-date 2017/8/20
-# $daterange = Get-AdlJobDateRange $startdate $enddate
-# $adla_accountname = "datainsights"
-# $output_folder = "D:\jobhistory"
+$startdate = get-date 2017/8/16
+$enddate = get-date 2017/8/20
+$daterange = Get-AdlJobDateRange $startdate $enddate
+$adla_accountname = "datainsights"
+$output_folder = "D:\jobhistory"
 
 
 # Save daily job history
-# Export-AdlJobHistory -account $adla_accountname -daterange $daterange -folder $output_folder -overwrite $false
-
+Export-AdlJobHistory -account $adla_accountname -daterange $daterange -folder $output_folder -overwrite $false
 
 # Load the job back in
-# $jobs = Import-AdlJobHistory -account $adla_accountname -daterange $daterange -folder $output_folder 
-
+$jobs = Import-AdlJobHistory -account $adla_accountname -daterange $daterange -folder $output_folder 
 
 # Select the properties you want
 # $jobs | Select Submitter,ErrorMessage,DegreeOfParallelism,Priority,SubmitTime,StartTime,EndTime,State,Result | ConvertTo-Json | Out-file d:\jobhistory2.json            
