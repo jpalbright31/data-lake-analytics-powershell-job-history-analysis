@@ -4,7 +4,7 @@ platforms: powershell
 author: saveenr-msft
 ---
 
-# Data Lake Analytics - Job History Analysis
+# Azure Data Lake Analytics analyze job history with PowerShell
 
 PowerShell scripts to help analyze trends on U-SQL jobs.
 
