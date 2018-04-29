@@ -19,7 +19,7 @@ $d = (Get-Date).AddDays(-5)
 Get-AdlJob -Account $adla -SubmittedAfter $d -State Ended -Result Succeeded
 ```
 
-#### List all failed jobs submitted by "joe@contoso.com" within the past seven days.
+#### List all failed jobs submitted by `joe@contoso.com` within the past seven days.
 
 ```
 Get-AdlJob -Account $adla -Submitter "joe@contoso.com" -SubmittedAfter (Get-Date).AddDays(-7) -Result Failed
