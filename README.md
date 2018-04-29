@@ -1,7 +1,7 @@
 ---
 services: data-lake-analytics
 platforms: powershell
-author: saveenr
+author: saveenr-msft
 ---
 
 # Data Lake Analytics - Job History Analysis
