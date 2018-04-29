@@ -77,6 +77,9 @@ $jobs | Group-Object State | Select -Property Count,Name
 ```
 $jobs | Group-Object DegreeOfParallelism | Select -Property Count,Name
 ```
+
+#### Adding useful properties to Job objects
+
 When performing an analysis, it can be useful to add properties to the Job objects to make filtering and grouping simpler. The following  snippet shows how to annotate a JobInfo with calculated properties.
 
 ```
